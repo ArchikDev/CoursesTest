@@ -60,6 +60,7 @@ fun SignInScreen() {
         )
         Spacer(modifier = Modifier.height(18.dp))
         ButtonSimple(
+            isEnabled = true,
             text = stringResource(R.string.signinTxt),
             onClick = {
 

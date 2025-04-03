@@ -46,7 +46,7 @@ fun ButtonSimple(
             .fillMaxWidth()
             .height(40.dp)
             .clip(RoundedCornerShape(30.dp))
-            .alpha(if (isEnabled) 1f else .6f)
+            .alpha(if (isEnabled) 1f else .4f)
             .background(bg)
             .padding(0.dp),
         colors = ButtonDefaults.buttonColors(
