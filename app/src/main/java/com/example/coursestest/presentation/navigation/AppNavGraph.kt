@@ -66,7 +66,11 @@ fun AppNavGraph(
             CourseScreen()
         }
         composable<SignInRoute> {
-            SignInScreen()
+            SignInScreen(
+                onSignIn = {
+                    navController.navigate(MainRoute)
+                }
+            )
         }
         composable<FavoriteRoute> {
             FavoriteScreen()

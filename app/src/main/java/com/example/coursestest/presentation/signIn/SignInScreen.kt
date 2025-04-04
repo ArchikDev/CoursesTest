@@ -28,11 +28,31 @@ import com.example.coursestest.presentation.theme.OrangeGradient
 import com.example.coursestest.presentation.theme.Stroke
 
 @Composable
-fun SignInScreen() {
+fun SignInScreen(
+    onSignIn: () -> Unit
+) {
     val emailInput = remember { mutableStateOf("") }
     val passwordInput = remember { mutableStateOf("") }
+    val isEmailValid = remember { mutableStateOf(false) }
+    val isPasswordValid = remember { mutableStateOf(false) }
+    val isEnabledButton = remember { mutableStateOf(false) }
 
     val urlHandler = LocalUriHandler.current
+
+    fun shouldEnabledButton() {
+        isEnabledButton.value = isEmailValid.value
+                && isPasswordValid.value
+    }
+
+    fun validatePassword() {
+        isPasswordValid.value = passwordInput.value.length >= 3
+        shouldEnabledButton()
+    }
+
+    fun validateEmail() {
+        isEmailValid.value = android.util.Patterns.EMAIL_ADDRESS.matcher(emailInput.value).matches()
+        shouldEnabledButton()
+    }
 
     Column(
         modifier = Modifier.fillMaxSize(),
@@ -44,6 +64,7 @@ fun SignInScreen() {
             value = emailInput.value,
             onValueChanged = {
                 emailInput.value = it
+                validateEmail()
             },
             label = stringResource(R.string.emailTxt),
             placeholder = stringResource(R.string.emailPlaceholderTxt)
@@ -54,17 +75,16 @@ fun SignInScreen() {
             value = passwordInput.value,
             onValueChanged = {
                 passwordInput.value = it
+                validatePassword()
             },
             label = stringResource(R.string.passwordLabelTxt),
             placeholder = stringResource(R.string.passwordPlaceholderTxt)
         )
         Spacer(modifier = Modifier.height(18.dp))
         ButtonSimple(
-            isEnabled = true,
+            isEnabled = isEnabledButton.value,
             text = stringResource(R.string.signinTxt),
-            onClick = {
-
-            }
+            onClick = onSignIn
         )
         Spacer(modifier = Modifier.height(16.dp))
         Column(
