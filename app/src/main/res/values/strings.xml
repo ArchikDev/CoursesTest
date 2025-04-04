@@ -10,5 +10,6 @@
     <string name="passForgotTxt">Забыл пароль</string>
     <string name="searchCoursesTxt">Search courses...</string>
     <string name="sortDateTxt">По дате добавления</string>
+    <string name="MoreTxt">Подробнее</string>
     <string name="notCourseTxt">Нет курсов</string>
 </resources>
