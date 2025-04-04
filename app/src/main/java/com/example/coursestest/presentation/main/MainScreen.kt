@@ -1,5 +1,7 @@
 package com.example.coursestest.presentation.main
 
+import android.os.Build
+import androidx.annotation.RequiresApi
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -17,6 +19,10 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -28,12 +34,16 @@ import com.example.coursestest.R
 import com.example.coursestest.presentation.components.CourseCard
 import com.example.coursestest.presentation.components.SearchFilterPanel
 import com.example.coursestest.presentation.theme.Green
+import com.example.coursestest.utils.toDateLong
 
+@RequiresApi(Build.VERSION_CODES.O)
 @Composable
 fun MainScreen(
     viewModel: MainViewModel = hiltViewModel()
 ) {
     val uiState = viewModel.uiState.collectAsState()
+
+    var currentSortOrder by remember { mutableStateOf<SortOrder>(SortOrder.Ask) }
 
     Column(
         modifier = Modifier.fillMaxSize()
@@ -44,7 +54,11 @@ fun MainScreen(
             modifier = Modifier
                 .align(Alignment.End)
                 .clickable {
-
+                    currentSortOrder = if (currentSortOrder == SortOrder.Ask) {
+                        SortOrder.Desc
+                    } else {
+                        SortOrder.Ask
+                    }
                 },
             verticalAlignment = Alignment.CenterVertically
         ) {
@@ -81,10 +95,14 @@ fun MainScreen(
             MainViewModel.MainEvent.Nothing -> {}
             is MainViewModel.MainEvent.Success -> {
                 val courses = (uiState.value as MainViewModel.MainEvent.Success).courses
+                val coursesSorted = when(currentSortOrder) {
+                    SortOrder.Ask -> courses.sortedBy { it.publishDate.toDateLong() }
+                    SortOrder.Desc -> courses.sortedBy { it.publishDate.toDateLong() }.reversed()
+                }
 
                 LazyColumn(modifier = Modifier.fillMaxSize()) {
                     if (courses.isNotEmpty()) {
-                        items(courses) { course ->
+                        items(coursesSorted) { course ->
                             CourseCard(course)
                         }
                     } else {
@@ -99,5 +117,10 @@ fun MainScreen(
             }
         }
     }
+}
+
+sealed class SortOrder() {
+    data object Desc: SortOrder()
+    data object Ask: SortOrder()
 }
 

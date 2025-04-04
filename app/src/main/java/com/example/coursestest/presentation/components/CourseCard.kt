@@ -1,5 +1,7 @@
 package com.example.coursestest.presentation.components
 
+import android.os.Build
+import androidx.annotation.RequiresApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -44,8 +46,10 @@ import com.example.coursestest.presentation.theme.Glass
 import com.example.coursestest.presentation.theme.Green
 import com.example.coursestest.presentation.theme.White50
 import com.example.coursestest.utils.ShiftAlignment
+import com.example.coursestest.utils.dateFormat
 
 
+@RequiresApi(Build.VERSION_CODES.O)
 @Composable
 fun CourseCard(course: Course) {
     val isFav = remember { mutableStateOf(false) }
@@ -142,7 +146,7 @@ fun CourseCard(course: Course) {
                             verticalAlignment = Alignment.CenterVertically
                         ) {
                             Text(
-                                text = course.publishDate,
+                                text = dateFormat(course.publishDate),
                                 style = MaterialTheme.typography.labelSmall
                             )
                         }
