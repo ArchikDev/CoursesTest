@@ -31,6 +31,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
@@ -42,11 +43,13 @@ import com.example.coursestest.presentation.theme.DarkGray
 import com.example.coursestest.presentation.theme.Glass
 import com.example.coursestest.presentation.theme.Green
 import com.example.coursestest.presentation.theme.White50
+import com.example.coursestest.utils.ShiftAlignment
 
 
 @Composable
 fun CourseCard(course: Course) {
     val isFav = remember { mutableStateOf(false) }
+    val verticalShift = LocalDensity.current.run { (-30).dp.toPx() }
 
     ElevatedCard(
         modifier = Modifier.padding(bottom = 16.dp),
@@ -72,7 +75,7 @@ fun CourseCard(course: Course) {
                         .fillMaxSize()
                         .clip(RoundedCornerShape(16.dp)),
                     contentScale = ContentScale.Crop,
-                    alignment = Alignment.Center
+                    alignment = ShiftAlignment(verticalShift)
                 )
                 Box(modifier = Modifier
                     .fillMaxSize()
