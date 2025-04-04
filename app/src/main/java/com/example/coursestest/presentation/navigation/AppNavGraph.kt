@@ -18,7 +18,7 @@ import com.example.coursestest.presentation.signIn.SignInScreen
 fun AppNavGraph(
     modifier: Modifier = Modifier,
     navController: NavHostController = rememberNavController(),
-    startDestination: Any = SignInRoute,
+    startDestination: Any = MainRoute,
 ) {
 
     NavHost(

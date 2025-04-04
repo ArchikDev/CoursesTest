@@ -8,4 +8,7 @@
     <string name="notAccountTxt">"Нету аккаунта? "</string>
     <string name="regTxt">Региcтрация</string>
     <string name="passForgotTxt">Забыл пароль</string>
+    <string name="searchCoursesTxt">Search courses...</string>
+    <string name="sortDateTxt">По дате добавления</string>
+    <string name="notCourseTxt">Нет курсов</string>
 </resources>
