@@ -9,4 +9,5 @@ data class Course(
     val startDate: String,
     val hasLike: Boolean,
     val publishDate: String,
+    val imageUrl: String,
 )
