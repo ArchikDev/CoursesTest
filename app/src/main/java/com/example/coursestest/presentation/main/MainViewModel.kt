@@ -1,43 +1,65 @@
 package com.example.coursestest.presentation.main
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.coursestest.data.models.Course
 import com.example.coursestest.data.remote.ApiResponse
-import com.example.coursestest.data.remote.CourseApi
 import com.example.coursestest.data.remote.safeApiCall
+import com.example.coursestest.domain.repository.CourseRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class MainViewModel @Inject constructor(
-    private val courseApi: CourseApi,
+    private val repository: CourseRepository
 ): ViewModel() {
+    private var courses = MutableStateFlow<List<Course>>(emptyList())
+
     private val _uiState = MutableStateFlow<MainEvent>(MainEvent.Nothing)
-    val uiState = _uiState.asStateFlow()
+    val uiState = combine(
+        repository.getCoursesBD(),
+        courses
+    ) { coursesBd, courses  ->
+
+        val coursesCurrent = courses.map { course ->
+            coursesBd.find { courseBd ->
+                courseBd.id == course.id
+            } ?: course
+        }
+
+        if (coursesBd.isEmpty()) {
+            repository.insertAll(coursesCurrent)
+        }
+
+        MainEvent.Success(coursesCurrent)
+    }.stateIn(
+        scope = viewModelScope,
+        started = SharingStarted.WhileSubscribed(stopTimeoutMillis = 5000),
+        initialValue = MainEvent.Nothing
+    )
 
     init {
         getCourses()
     }
-
 
     private fun getCourses() {
         viewModelScope.launch {
             _uiState.value = MainEvent.Loading
 
             try {
+
                 val response = safeApiCall {
-                    courseApi.getCourses()
+                    repository.getCourses()
                 }
 
                 when (response) {
                     is ApiResponse.Success -> {
-                        _uiState.value = MainEvent.Success(response.data.courses)
+                        courses.value = response.data.courses
                     }
                     else -> {
                         _uiState.value = MainEvent.Error
@@ -46,6 +68,12 @@ class MainViewModel @Inject constructor(
             } catch (e: Exception) {
                 _uiState.value = MainEvent.Error
             }
+        }
+    }
+
+    fun setFavoriteCourse(course: Course) {
+        viewModelScope.launch {
+            repository.upsertCourse(course.copy(hasLike = !course.hasLike))
         }
     }
 

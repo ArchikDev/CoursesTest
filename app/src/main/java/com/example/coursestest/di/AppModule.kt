@@ -1,8 +1,11 @@
 package com.example.coursestest.di
 
 import android.content.Context
+import com.example.coursestest.data.local.CourseDatabase
 import com.example.coursestest.data.remote.CourseApi
 import com.example.coursestest.data.remote.LocalJsonInterceptor
+import com.example.coursestest.data.repository.CourseRepositoryImpl
+import com.example.coursestest.domain.repository.CourseRepository
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -41,29 +44,15 @@ object AppModule {
         return retrofit.create(CourseApi::class.java)
     }
 
-//    @Provides
-//    @Singleton
-//    fun providePictureDatabase(
-//        @ApplicationContext context: Context
-//    ): PictureDatabase {
-//        return Room
-//            .databaseBuilder(
-//                context,
-//                PictureDatabase::class.java,
-//                "picture.db"
-//            )
-//            .build()
-//    }
-//
-//    @Provides
-//    @Singleton
-//    fun providePictureRepository(
-//        flickrApi: FlickrApi,
-//        database: PictureDatabase
-//    ): PictureRepository {
-//        return PictureRepositoryImpl(
-//            flickrApi,
-//            database
-//        )
-//    }
+    @Provides
+    @Singleton
+    fun provideCourseRepository(
+        courseApi: CourseApi,
+        database: CourseDatabase
+    ): CourseRepository {
+        return CourseRepositoryImpl(
+            courseApi,
+            database.courseDao()
+        )
+    }
 }

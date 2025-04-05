@@ -51,8 +51,10 @@ import com.example.coursestest.utils.dateFormat
 
 @RequiresApi(Build.VERSION_CODES.O)
 @Composable
-fun CourseCard(course: Course) {
-    val isFav = remember { mutableStateOf(false) }
+fun CourseCard(
+    course: Course,
+    onClickFavorite: (course: Course) -> Unit
+) {
     val verticalShift = LocalDensity.current.run { (-30).dp.toPx() }
 
     ElevatedCard(
@@ -87,7 +89,7 @@ fun CourseCard(course: Course) {
                 ) {
                     IconButton(
                         onClick = {
-                            isFav.value = !isFav.value
+                            onClickFavorite(course)
                         },
                         modifier = Modifier
                             .size(28.dp)
@@ -96,7 +98,7 @@ fun CourseCard(course: Course) {
                             containerColor = Glass,
                         ),
                     ) {
-                        if (isFav.value) {
+                        if (course.hasLike) {
                             Icon(
                                 painter = painterResource(R.drawable.icon_fav_active),
                                 contentDescription = null,

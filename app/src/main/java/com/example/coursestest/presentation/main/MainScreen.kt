@@ -26,6 +26,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.coursestest.R
 import com.example.coursestest.presentation.components.CourseCard
 import com.example.coursestest.presentation.components.SearchFilterPanel
@@ -38,7 +39,7 @@ import com.example.coursestest.utils.toDateLong
 fun MainScreen(
     viewModel: MainViewModel = hiltViewModel()
 ) {
-    val uiState = viewModel.uiState.collectAsState()
+    val uiState = viewModel.uiState.collectAsStateWithLifecycle()
 
     var currentSortOrder by remember { mutableStateOf<SortOrder>(SortOrder.Ask) }
 
@@ -91,7 +92,12 @@ fun MainScreen(
                 LazyColumn(modifier = Modifier.fillMaxSize()) {
                     if (courses.isNotEmpty()) {
                         items(coursesSorted) { course ->
-                            CourseCard(course)
+                            CourseCard(
+                                course = course,
+                                onClickFavorite = {
+                                    viewModel.setFavoriteCourse(course)
+                                }
+                            )
                         }
                     } else {
                         item {
