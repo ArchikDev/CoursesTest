@@ -7,6 +7,7 @@ import com.example.coursestest.data.remote.ApiResponse
 import com.example.coursestest.data.remote.safeApiCall
 import com.example.coursestest.domain.repository.CourseRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.combine
@@ -18,25 +19,29 @@ import javax.inject.Inject
 class MainViewModel @Inject constructor(
     private val repository: CourseRepository
 ): ViewModel() {
-    private var courses = MutableStateFlow<List<Course>>(emptyList())
 
     private val _uiState = MutableStateFlow<MainEvent>(MainEvent.Nothing)
     val uiState = combine(
+        _uiState,
         repository.getCoursesBD(),
-        courses
-    ) { coursesBd, courses  ->
+    ) { state, coursesBd  ->
+        if (state is MainEvent.Success) {
+            var coursesCurrent = state.courses.map { course ->
+                coursesBd.find { courseBd ->
+                    courseBd.id == course.id
+                } ?: course
+            }
 
-        val coursesCurrent = courses.map { course ->
-            coursesBd.find { courseBd ->
-                courseBd.id == course.id
-            } ?: course
-        }
+            if (coursesBd.isEmpty()) {
+                repository.insertAll(coursesCurrent)
+            }
 
-        if (coursesBd.isEmpty()) {
-            repository.insertAll(coursesCurrent)
-        }
+            if (coursesCurrent.isEmpty() && coursesBd.isNotEmpty()) {
+                coursesCurrent = coursesBd
+            }
 
-        MainEvent.Success(coursesCurrent)
+            MainEvent.Success(coursesCurrent)
+        } else state
     }.stateIn(
         scope = viewModelScope,
         started = SharingStarted.WhileSubscribed(stopTimeoutMillis = 5000),
@@ -59,7 +64,7 @@ class MainViewModel @Inject constructor(
 
                 when (response) {
                     is ApiResponse.Success -> {
-                        courses.value = response.data.courses
+                        _uiState.value = MainEvent.Success(response.data.courses)
                     }
                     else -> {
                         _uiState.value = MainEvent.Error
