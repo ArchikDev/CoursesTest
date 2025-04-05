@@ -15,4 +15,6 @@
     <string name="navigation_item_home">Главная</string>
     <string name="navigation_item_favorite">Избранное</string>
     <string name="navigation_item_profile">Аккаунт</string>
+    <string name="favoriteTxt">Избранное</string>
+    <string name="notFavoriteTxt">Нет избранных курсов</string>
 </resources>
