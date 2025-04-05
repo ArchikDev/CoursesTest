@@ -9,10 +9,16 @@ import androidx.annotation.RequiresApi
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavDestination.Companion.hasRoute
+import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.example.coursestest.presentation.components.BottomBar
+import com.example.coursestest.presentation.components.NavigationItem
 import com.example.coursestest.presentation.navigation.AppNavGraph
 import com.example.coursestest.presentation.theme.CoursesTestTheme
 import dagger.hilt.android.AndroidEntryPoint
@@ -26,18 +32,31 @@ class MainActivity : ComponentActivity() {
         setContent {
             CoursesTestTheme {
                 val navController = rememberNavController()
+                val navBackStackEntry by navController.currentBackStackEntryAsState()
+                val currentDestination = navBackStackEntry?.destination
+
+                val isVisibleBottomBar = remember {
+                    mutableStateOf(false)
+                }
+
+                val itemsRoute = listOf(
+                    NavigationItem.Main,
+                    NavigationItem.Favorite,
+                    NavigationItem.Profile,
+                )
+
+                isVisibleBottomBar.value = itemsRoute.any { item ->
+                    currentDestination?.hasRoute(item.route::class) == true
+                }
 
                 Scaffold(
                     modifier = Modifier.fillMaxSize(),
                     bottomBar = {
-//                        if (isVisibleBottomBar.value) {
-//                            BottomBar(
-//                                navController = navController
-//                            )
-//                        }
-                        BottomBar(
-                            navController = navController
-                        )
+                        if (isVisibleBottomBar.value) {
+                            BottomBar(
+                                navController = navController
+                            )
+                        }
                     }
                 ) { innerPadding ->
                     AppNavGraph(

@@ -9,7 +9,6 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import androidx.navigation.compose.rememberNavController
 import com.example.coursestest.presentation.course.CourseScreen
 import com.example.coursestest.presentation.favorite.FavoriteScreen
 import com.example.coursestest.presentation.main.MainScreen
@@ -21,7 +20,7 @@ import com.example.coursestest.presentation.signIn.SignInScreen
 fun AppNavGraph(
     modifier: Modifier = Modifier,
     navController: NavHostController,
-    startDestination: Any = MainRoute,
+    startDestination: Any = SignInRoute,
 ) {
 
     NavHost(
@@ -42,28 +41,7 @@ fun AppNavGraph(
         modifier = modifier
     ) {
         composable<MainRoute> {
-//            val viewModel = hiltViewModel<ProjectsViewModel>()
-
             MainScreen()
-
-//            ProjectsScreen(
-//                viewModel = viewModel,
-//                onEditProject = { project ->
-//                    navActions.navigateToAddEditProject(project)
-//                },
-//                onAddProject = {
-//                    navActions.navigateToAddEditProject(project = Project(
-//                        projectId = null,
-//                        title = "",
-//                        countTasks = 0,
-//                        totalTime = 0,
-//                        color = Project.projectsColors[0].toArgb()
-//                    ))
-//                },
-//                onClickProject = { project ->
-//                    navActions.navigateToTaskList(project)
-//                }
-//            )
         }
         composable<CourseRoute> {
             CourseScreen()
@@ -81,17 +59,5 @@ fun AppNavGraph(
         composable<ProfileRoute> {
             ProfileScreen()
         }
-//        composable<AddEditProjectRoute>(
-//            typeMap = mapOf(
-//                typeOf<Project>() to AppCustomNavType.ProjectType
-//            )
-//        ) {
-//            val arg = it.toRoute<AddEditProjectRoute>()
-//            AddEditProjectScreen(
-//                project = arg.project,
-//                onBack = { navController.popBackStack() }
-//            )
-//        }
-//
     }
 }
