@@ -1,5 +1,7 @@
 package com.example.coursestest.presentation.navigation
 
+import android.os.Build
+import androidx.annotation.RequiresApi
 import androidx.compose.animation.EnterTransition
 import androidx.compose.animation.ExitTransition
 import androidx.compose.runtime.Composable
@@ -14,10 +16,11 @@ import com.example.coursestest.presentation.main.MainScreen
 import com.example.coursestest.presentation.profile.ProfileScreen
 import com.example.coursestest.presentation.signIn.SignInScreen
 
+@RequiresApi(Build.VERSION_CODES.O)
 @Composable
 fun AppNavGraph(
     modifier: Modifier = Modifier,
-    navController: NavHostController = rememberNavController(),
+    navController: NavHostController,
     startDestination: Any = MainRoute,
 ) {
 

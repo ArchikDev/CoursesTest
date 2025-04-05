@@ -2,6 +2,10 @@ package com.example.coursestest.utils
 
 import android.os.Build
 import androidx.annotation.RequiresApi
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.LocalRippleConfiguration
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
 import java.time.LocalDateTime
 import java.time.ZoneId
 import java.time.format.DateTimeFormatter
@@ -26,4 +30,12 @@ fun String?.toDateLong(): Long {
             .toInstant()
             .toEpochMilli()
     } catch (_: Exception) { 0 }
+}
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun DisableRippleEffect(content: @Composable () -> Unit) {
+    CompositionLocalProvider(LocalRippleConfiguration provides null) {
+        content()
+    }
 }

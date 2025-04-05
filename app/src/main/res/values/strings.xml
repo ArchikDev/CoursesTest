@@ -12,4 +12,7 @@
     <string name="sortDateTxt">По дате добавления</string>
     <string name="MoreTxt">Подробнее</string>
     <string name="notCourseTxt">Нет курсов</string>
+    <string name="navigation_item_home">Главная</string>
+    <string name="navigation_item_favorite">Избранное</string>
+    <string name="navigation_item_profile">Аккаунт</string>
 </resources>
