@@ -3,6 +3,9 @@ package com.example.coursestest.presentation.navigation
 import kotlinx.serialization.Serializable
 
 @Serializable
+object OnBoardRoute
+
+@Serializable
 object MainRoute
 
 @Serializable

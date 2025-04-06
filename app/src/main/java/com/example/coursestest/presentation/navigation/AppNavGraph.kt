@@ -9,9 +9,9 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import com.example.coursestest.presentation.course.CourseScreen
 import com.example.coursestest.presentation.favorite.FavoriteScreen
 import com.example.coursestest.presentation.main.MainScreen
+import com.example.coursestest.presentation.onboarding.OnBoardingScreen
 import com.example.coursestest.presentation.profile.ProfileScreen
 import com.example.coursestest.presentation.signIn.SignInScreen
 
@@ -20,7 +20,7 @@ import com.example.coursestest.presentation.signIn.SignInScreen
 fun AppNavGraph(
     modifier: Modifier = Modifier,
     navController: NavHostController,
-    startDestination: Any = SignInRoute,
+    startDestination: Any = OnBoardRoute,
 ) {
 
     NavHost(
@@ -40,11 +40,11 @@ fun AppNavGraph(
         },
         modifier = modifier
     ) {
+        composable<OnBoardRoute> {
+            OnBoardingScreen()
+        }
         composable<MainRoute> {
             MainScreen()
-        }
-        composable<CourseRoute> {
-            CourseScreen()
         }
         composable<SignInRoute> {
             SignInScreen(

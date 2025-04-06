@@ -2,6 +2,7 @@
     <string name="app_name">CoursesTest</string>
     <string name="emailTxt">Email</string>
     <string name="signinTxt">Вход</string>
+    <string name="nextTxt">Продолжить</string>
     <string name="emailPlaceholderTxt">Введите email</string>
     <string name="passwordPlaceholderTxt">Введите пароль</string>
     <string name="passwordLabelTxt">Пароль</string>

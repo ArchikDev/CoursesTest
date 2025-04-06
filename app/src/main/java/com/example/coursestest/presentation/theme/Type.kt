@@ -20,8 +20,8 @@ val Typography = Typography(
     headlineLarge = TextStyle(
         fontFamily = Roboto,
         fontWeight = FontWeight.Normal,
-        fontSize = 36.sp,
-        lineHeight = 28.sp
+        fontSize = 28.sp,
+        lineHeight = 36.sp
     ),
     bodyMedium = TextStyle(
         fontFamily = Roboto,
