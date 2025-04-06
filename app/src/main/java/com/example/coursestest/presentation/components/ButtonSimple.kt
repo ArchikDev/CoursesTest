@@ -21,6 +21,7 @@ import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Color.Companion.White
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.example.coursestest.presentation.theme.Green
 
@@ -30,6 +31,7 @@ fun ButtonSimple(
     text: String = "",
     icon: Int? = null,
     onClick: () -> Unit = { },
+    height: Dp = 40.dp,
     bgColor: Color = Green,
     bgBrush: Brush? = null,
     modifier: Modifier = Modifier
@@ -43,8 +45,7 @@ fun ButtonSimple(
     Button(
         modifier = Modifier
             .then(modifier)
-            .fillMaxWidth()
-            .height(40.dp)
+            .height(height)
             .clip(RoundedCornerShape(30.dp))
             .alpha(if (isEnabled) 1f else .4f)
             .background(bg)

@@ -20,6 +20,7 @@ import androidx.navigation.compose.rememberNavController
 import com.example.coursestest.presentation.components.BottomBar
 import com.example.coursestest.presentation.components.NavigationItem
 import com.example.coursestest.presentation.navigation.AppNavGraph
+import com.example.coursestest.presentation.navigation.OnBoardRoute
 import com.example.coursestest.presentation.theme.CoursesTestTheme
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -39,6 +40,8 @@ class MainActivity : ComponentActivity() {
                     mutableStateOf(false)
                 }
 
+                val pdLeftRightContent = remember { mutableStateOf(16.dp) }
+
                 val itemsRoute = listOf(
                     NavigationItem.Main,
                     NavigationItem.Favorite,
@@ -48,6 +51,15 @@ class MainActivity : ComponentActivity() {
                 isVisibleBottomBar.value = itemsRoute.any { item ->
                     currentDestination?.hasRoute(item.route::class) == true
                 }
+
+                if (currentDestination?.hasRoute(OnBoardRoute::class) == true) {
+                    pdLeftRightContent.value = 0.dp
+                }
+
+
+
+
+
 
                 Scaffold(
                     modifier = Modifier.fillMaxSize(),
@@ -64,8 +76,8 @@ class MainActivity : ComponentActivity() {
                         modifier = Modifier
                             .padding(innerPadding)
                             .padding(
-                                start = 16.dp,
-                                end = 16.dp,
+                                start = pdLeftRightContent.value,
+                                end = pdLeftRightContent.value,
                                 top = 16.dp
                             )
                     )
