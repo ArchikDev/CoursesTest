@@ -32,6 +32,7 @@ import com.example.coursestest.R
 import com.example.coursestest.presentation.components.CourseCard
 import com.example.coursestest.presentation.components.SearchFilterPanel
 import com.example.coursestest.presentation.theme.Green
+import com.example.coursestest.utils.CONTENT_DP
 import com.example.coursestest.utils.Loader
 import com.example.coursestest.utils.toDateLong
 
@@ -45,7 +46,13 @@ fun MainScreen(
     var currentSortOrder by remember { mutableStateOf<SortOrder>(SortOrder.Ask) }
 
     Column(
-        modifier = Modifier.fillMaxSize()
+        modifier = Modifier
+            .padding(
+                start = CONTENT_DP,
+                end = CONTENT_DP,
+                top = CONTENT_DP
+            )
+            .fillMaxSize()
     ) {
         SearchFilterPanel()
         Spacer(modifier = Modifier.height(16.dp))

@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.MaterialTheme
@@ -26,6 +27,7 @@ import com.example.coursestest.presentation.theme.Blue
 import com.example.coursestest.presentation.theme.Green
 import com.example.coursestest.presentation.theme.OrangeGradient
 import com.example.coursestest.presentation.theme.Stroke
+import com.example.coursestest.utils.CONTENT_DP
 
 @Composable
 fun SignInScreen(
@@ -55,7 +57,13 @@ fun SignInScreen(
     }
 
     Column(
-        modifier = Modifier.fillMaxSize(),
+        modifier = Modifier
+            .padding(
+                start = CONTENT_DP,
+                end = CONTENT_DP,
+                top = CONTENT_DP
+            )
+            .fillMaxSize(),
         verticalArrangement = Arrangement.Center
     ) {
         Text(text = stringResource(R.string.signinTxt), style = MaterialTheme.typography.headlineLarge)

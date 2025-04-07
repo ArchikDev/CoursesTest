@@ -51,7 +51,6 @@ class MainActivity : ComponentActivity() {
                     mutableStateOf(false)
                 }
 
-                val pdLeftRightContent = remember { mutableStateOf(16.dp) }
 
                 val itemsRoute = listOf(
                     NavigationItem.Main,
@@ -61,10 +60,6 @@ class MainActivity : ComponentActivity() {
 
                 isVisibleBottomBar.value = itemsRoute.any { item ->
                     currentDestination?.hasRoute(item.route::class) == true
-                }
-
-                if (currentDestination?.hasRoute(OnBoardRoute::class) == true) {
-                    pdLeftRightContent.value = 0.dp
                 }
 
                 Scaffold(
@@ -82,11 +77,6 @@ class MainActivity : ComponentActivity() {
                         navController = navController,
                         modifier = Modifier
                             .padding(innerPadding)
-                            .padding(
-                                start = pdLeftRightContent.value,
-                                end = pdLeftRightContent.value,
-                                top = 16.dp
-                            )
                     )
                 }
             }

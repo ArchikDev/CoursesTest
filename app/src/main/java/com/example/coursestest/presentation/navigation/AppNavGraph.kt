@@ -26,18 +26,18 @@ fun AppNavGraph(
     NavHost(
         navController = navController,
         startDestination = startDestination,
-        enterTransition = {
-            EnterTransition.None
-        },
-        exitTransition = {
-            ExitTransition.None
-        },
-        popEnterTransition = {
-            EnterTransition.None
-        },
-        popExitTransition = {
-            ExitTransition.None
-        },
+//        enterTransition = {
+//            EnterTransition.None
+//        },
+//        exitTransition = {
+//            ExitTransition.None
+//        },
+//        popEnterTransition = {
+//            EnterTransition.None
+//        },
+//        popExitTransition = {
+//            ExitTransition.None
+//        },
         modifier = modifier
     ) {
         composable<OnBoardRoute> {

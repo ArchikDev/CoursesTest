@@ -22,6 +22,7 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.coursestest.R
 import com.example.coursestest.presentation.components.CourseCard
 import com.example.coursestest.presentation.main.MainViewModel
+import com.example.coursestest.utils.CONTENT_DP
 
 @RequiresApi(Build.VERSION_CODES.O)
 @Composable
@@ -31,7 +32,13 @@ fun FavoriteScreen(
     val courseFavorite = viewModel.coursesFavorite.collectAsStateWithLifecycle()
 
     Column(
-        modifier = Modifier.fillMaxSize()
+        modifier = Modifier
+            .padding(
+                start = CONTENT_DP,
+                end = CONTENT_DP,
+                top = CONTENT_DP
+            )
+            .fillMaxSize()
     ) {
         Text(
             stringResource(R.string.favoriteTxt),
