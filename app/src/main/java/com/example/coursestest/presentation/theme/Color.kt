@@ -11,6 +11,7 @@ val DarkGray = Color(0xFF24252A)
 val LightGray = Color(0xFF32333A)
 val Stroke = Color(0xFF4D555E)
 val Glass = Color(0xB332333A)
+val Glass90 = Color(0xE632333A)
 val Caption = Color(0x80F2F2F3)
 val Blue = Color(0xFF2683ED)
 val OrangeGradient = Brush.verticalGradient(

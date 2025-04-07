@@ -29,14 +29,18 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.zIndex
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.coursestest.R
 import com.example.coursestest.presentation.components.ButtonSimple
 import com.example.coursestest.presentation.theme.Glass
+import com.example.coursestest.presentation.theme.Glass90
 import com.example.coursestest.presentation.theme.Green
 import kotlinx.coroutines.launch
 
 @Composable
-fun OnBoardingScreen() {
+fun OnBoardingScreen(
+    viewModel: OnBoardingViewModel = hiltViewModel()
+) {
     val tagCourseList = listOf(
         TagCourse(name = "1С Администрирование"),
         TagCourse(name = "RabbitMQ", rotate = "left"),
@@ -75,7 +79,9 @@ fun OnBoardingScreen() {
 
         ButtonSimple(
             text = stringResource(R.string.nextTxt),
-            onClick = {},
+            onClick = {
+                viewModel.saveAppEntry()
+            },
             modifier = Modifier
                 .padding(horizontal = 16.dp)
                 .fillMaxWidth()
@@ -140,7 +146,7 @@ fun BoxSwipe(tagCourseList: List<TagCourse>) {
 
             ButtonSimple(
                 text = tag.name,
-                bgColor = if (tag.rotate?.isNotEmpty() == true) Green else Glass,
+                bgColor = if (tag.rotate?.isNotEmpty() == true) Green else Glass90,
                 modifier = Modifier
                     .padding(
                         bottom = 8.dp

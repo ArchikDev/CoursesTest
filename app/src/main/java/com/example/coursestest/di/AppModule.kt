@@ -1,11 +1,14 @@
 package com.example.coursestest.di
 
+import android.app.Application
 import android.content.Context
 import com.example.coursestest.data.local.CourseDatabase
 import com.example.coursestest.data.remote.CourseApi
 import com.example.coursestest.data.remote.LocalJsonInterceptor
 import com.example.coursestest.data.repository.CourseRepositoryImpl
+import com.example.coursestest.data.repository.LocalRepositoryImpl
 import com.example.coursestest.domain.repository.CourseRepository
+import com.example.coursestest.domain.repository.LocalRepository
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -55,4 +58,10 @@ object AppModule {
             database.courseDao()
         )
     }
+
+    @Provides
+    @Singleton
+    fun provideLocalRepository(
+        application: Application
+    ): LocalRepository = LocalRepositoryImpl(application)
 }

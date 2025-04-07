@@ -84,7 +84,8 @@ fun SignInScreen(
         ButtonSimple(
             isEnabled = isEnabledButton.value,
             text = stringResource(R.string.signinTxt),
-            onClick = onSignIn
+            onClick = onSignIn,
+            modifier = Modifier.fillMaxWidth()
         )
         Spacer(modifier = Modifier.height(16.dp))
         Column(

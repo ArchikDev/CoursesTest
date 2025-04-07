@@ -88,4 +88,6 @@ dependencies {
     // Coil
     implementation(libs.coilCompose)
     implementation(libs.coilNetworkCompose)
+    // splash
+    implementation(libs.splash.screen)
 }
