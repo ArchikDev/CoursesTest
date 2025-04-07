@@ -56,11 +56,6 @@ class MainActivity : ComponentActivity() {
                     pdLeftRightContent.value = 0.dp
                 }
 
-
-
-
-
-
                 Scaffold(
                     modifier = Modifier.fillMaxSize(),
                     bottomBar = {
