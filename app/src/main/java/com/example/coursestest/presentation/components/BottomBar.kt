@@ -94,7 +94,9 @@ fun BottomBar(
                         item = item,
                         currentRoute = currentRoute
                     ) {
-                        navController.navigate(item.route)
+                        navController.navigate(item.route)  {
+                            popUpTo(MainRoute)
+                        }
                     }
                 }
             }
