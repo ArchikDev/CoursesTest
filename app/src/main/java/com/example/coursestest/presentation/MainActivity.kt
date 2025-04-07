@@ -8,8 +8,6 @@ import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
 import androidx.annotation.RequiresApi
 import androidx.compose.animation.AnimatedVisibility
-import androidx.compose.animation.fadeIn
-import androidx.compose.animation.fadeOut
 import androidx.compose.animation.slideInVertically
 import androidx.compose.animation.slideOutVertically
 import androidx.compose.foundation.layout.fillMaxSize
@@ -19,7 +17,6 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.unit.dp
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.navigation.NavDestination.Companion.hasRoute
 import androidx.navigation.compose.currentBackStackEntryAsState
@@ -27,7 +24,6 @@ import androidx.navigation.compose.rememberNavController
 import com.example.coursestest.presentation.components.BottomBar
 import com.example.coursestest.presentation.components.NavigationItem
 import com.example.coursestest.presentation.navigation.AppNavGraph
-import com.example.coursestest.presentation.navigation.OnBoardRoute
 import com.example.coursestest.presentation.theme.CoursesTestTheme
 import dagger.hilt.android.AndroidEntryPoint
 

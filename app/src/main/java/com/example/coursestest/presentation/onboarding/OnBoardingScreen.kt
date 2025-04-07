@@ -20,7 +20,6 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.blur
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalDensity
@@ -32,7 +31,6 @@ import androidx.compose.ui.zIndex
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.coursestest.R
 import com.example.coursestest.presentation.components.ButtonSimple
-import com.example.coursestest.presentation.theme.Glass
 import com.example.coursestest.presentation.theme.Glass90
 import com.example.coursestest.presentation.theme.Green
 import kotlinx.coroutines.launch
